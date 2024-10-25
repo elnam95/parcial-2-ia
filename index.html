@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inteligencia Artificial, Ciberseguridad y Algoritmos de Búsqueda</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center; /* Centrar el texto de los encabezados h1 */
+        }
+        h2 {
+            color: #34495e;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            overflow: auto;
+        }
+        table {
+            width: 60%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Clase 15 de Agosto de 2024</h1>
+    <p>
+        En el webinar sobre Ciberseguridad, Inteligencia Artificial y Computación en la Nube, se destacó la importancia de la ciberseguridad 
+        para prevenir ataques de malware y phishing, los cuales buscan robar información sin el consentimiento de las personas.
+    </p>
+    <p>
+        Además, se resaltó el uso de la IA y la computación en la nube como herramientas para reducir costos de administración 
+        y agilizar la gestión de procesos como transacciones, retiros y transferencias de dinero. Estas tecnologías permiten 
+        garantizar la seguridad de las personas y cómo manejan su dinero.
+    </p>
+    
+    <h1>¿Qué es la Inteligencia Artificial?</h1>
+    <p>
+        La inteligencia artificial (IA) es un amplio campo de la informática centrado en la creación de sistemas y tecnologías capaces de realizar tareas 
+        que normalmente requieren inteligencia humana, como la generación de código para aplicaciones. Estas tareas incluyen:
+    </p>
+    <ul>
+        <li>Reconocimiento de voz</li>
+        <li>Aprendizaje automático</li>
+        <li>Toma de decisiones</li>
+        <li>Resolución de problemas</li>
+        <li>Percepción visual</li>
+        <li>Traducción de idiomas</li>
+        <li>Y más</li>
+    </ul>
+
+    <h1>Clase 22 de Agosto de 2024</h1>
+    <h2>Origen de la Inteligencia Artificial</h2>
+    <p>
+        El origen de la inteligencia artificial se remonta a los años 30, con el trabajo de Alan Turing en la máquina Enigma, 
+        capaz de descifrar los mensajes secretos de los nazis durante la Segunda Guerra Mundial.
+    </p>
+
+    <h2>Inteligencia Artificial Moderna</h2>
+    <p>
+        Aunque Alan Turing sentó bases sólidas en el estudio de la IA, no fue hasta 1956 que John McCarthy, Marvin Minsky y Claude Shannon 
+        popularizaron el término "Inteligencia Artificial" en la conferencia "Dartmouth Summer Research Project on Artificial Intelligence".
+    </p>
+
+    <h1>Fundamentos Filosóficos de la Inteligencia Artificial</h1>
+    <p>
+        Los principales enfoques filosóficos que influyen en la IA incluyen:
+    </p>
+    <ul>
+        <li>Idealismo</li>
+        <li>Materialismo</li>
+        <li>Empirismo</li>
+        <li>Existencialismo</li>
+        <li>Pragmatismo</li>
+        <li>Humanismo</li>
+        <li>Racionalismo</li>
+    </ul>
+
+    <h1>Modelo de Red Neuronal con TensorFlow</h1>
+    <pre>
+import tensorflow as tf  # Importamos la librería TensorFlow para crear redes neuronales
+import numpy as np  # Importamos NumPy para manejar arreglos numéricos
+
+# Datos de entrada (temperaturas en grados Celsius)
+celsius = np.array([-40, -10, 0, 8, 15, 22, 38], dtype=float)
+
+# Datos de salida (temperaturas en grados Fahrenheit)
+fahrenheit = np.array([-40, 14, 32, 46, 59, 72, 100], dtype=float)
+
+# Definimos la primera capa oculta con 3 neuronas, tomando un valor de entrada
+oculta1 = tf.keras.layers.Dense(units=3, input_shape=[1])
+
+# Definimos la segunda capa oculta con 3 neuronas
+oculta2 = tf.keras.layers.Dense(units=3)
+
+# Definimos la capa de salida con una sola neurona (predicción)
+salida = tf.keras.layers.Dense(units=1)
+
+# Creamos el modelo con las capas definidas
+modelo = tf.keras.Sequential([oculta1, oculta2, salida])
+
+# Compilamos el modelo utilizando el optimizador Adam y la función de pérdida de error cuadrático medio
+modelo.compile(
+    optimizer=tf.keras.optimizers.Adam(0.1),  # Tasa de aprendizaje 0.1
+    loss='mean_squared_error'  # Medida de error para la regresión
+)
+
+print("Comenzando el entrenamiento...")  # Mensaje informativo
+# Entrenamos el modelo con 1000 épocas (iteraciones) sin mostrar detalles (verbose=False)
+historial = modelo.fit(celsius, fahrenheit, epochs=1000, verbose=False)
+print("¡Entrenamiento completado!")  # Indicamos que el entrenamiento terminó
+
+# Importamos Matplotlib para graficar los resultados
+import matplotlib.pyplot as plt
+
+# Configuramos el gráfico
+plt.xlabel("# Epoca")
+plt.ylabel("Magnitud de pérdida")
+plt.plot(historial.history["loss"])  # Graficamos la pérdida a lo largo de las épocas
+
+print("Hagamos una predicción...")  # Informamos que haremos una predicción
+resultado = modelo.predict([100.0])  # Realizamos la predicción para 100°C
+print(f"El resultado es {resultado} grados Fahrenheit")  # Mostramos el resultado
+
+# Mostramos los pesos aprendidos por las capas ocultas y de salida
+print("Pesos de la primera capa oculta:", oculta1.get_weights())
+print("Pesos de la segunda capa oculta:", oculta2.get_weights())
+print("Pesos de la capa de salida:", salida.get_weights())
+    </pre>
+    <figure>
+    <img src="./images/maze.png" alt="maze" width="600">
+    <figcaption>maze: Laberinto original</figcaption>
+</figure>
+<figure>
+    <img src="./images/maze_bfs.png" alt="maze_bfs" width="600">
+    <figcaption>maze_bfs: Laberinto resuelto con BFS</figcaption>
+</figure>
+<figure>
+    <img src="./images/maze_dfs.png" alt="maze_dfs" width="600">
+    <figcaption>maze_dfs: Laberinto resuelto con DFS</figcaption>
+</figure>
+
+    <h1>Implementación de Lógica Proposicional y Algoritmos de Búsqueda</h1>
+
+    <h2>Implementación de Lógica Proposicional</h2>
+    <p>Este archivo representa una implementación en Python de un sistema de lógica proposicional, incluyendo clases para conjunciones, disyunciones, implicaciones, negaciones, entre otros.</p>
+
+    <h2>Clase Base: Sentence</h2>
+    <pre>
+class Sentence():  
+    "Clase base para representar una oración lógica."
+
+    def evaluate(self, model):
+        "Evalúa la oración lógica utilizando un modelo."
+        raise Exception("nada que evaluar")  # Lanza excepción si se llama sin implementar
+
+    def formula(self):
+        "Devuelve una representación de la fórmula lógica en forma de cadena de texto."
+        return ""  # Devuelve cadena vacía como representación por defecto
+
+    def symbols(self):
+        "Devuelve un conjunto de todos los símbolos presentes en la oración lógica."
+        return set()  # Devuelve un conjunto vacío por defecto
+
+    @classmethod
+    def validate(cls, sentence):
+        "Valida si un objeto es una instancia de la clase Sentence."
+        if not isinstance(sentence, Sentence):
+            raise TypeError("debe ser una oración lógica")  # Lanza excepción si no es una oración lógica
+
+    @classmethod
+    def parenthesize(cls, s):
+        "Coloca paréntesis en una expresión si no los tiene ya."
+        # Función auxiliar para verificar paréntesis balanceados.
+    </pre>
+
+    <h2>Clases para Operadores Lógicos</h2>
+    
+    <h3>Clase Symbol (Símbolo Lógico)</h3>
+    <pre>
+class Symbol(Sentence):
+    "Representa un símbolo lógico."
+    
+    def __init__(self, name):
+        self.name = name  # Inicializa el símbolo con su nombre
+
+    def evaluate(self, model):
+        "Evalúa el símbolo según el modelo proporcionado."
+        return model[self.name]  # Devuelve el valor asociado al símbolo en el modelo
+
+    def formula(self):
+        "Devuelve la representación del símbolo."
+        return self.name  # Retorna el nombre del símbolo
+
+    def symbols(self):
+        "Devuelve un conjunto que contiene el símbolo mismo."
+        return {self.name}  # Retorna un conjunto con el nombre del símbolo
+    </pre>
+
+    <h3>Clase And (Conjunción)</h3>
+    <pre>
+class And(Sentence):
+    "Representa la conjunción lógica."
+
+    def __init__(self, *args):
+        self.args = args  # Inicializa con un conjunto de oraciones
+
+    def evaluate(self, model):
+        "Evalúa la conjunción."
+        return all(arg.evaluate(model) for arg in self.args)  # Devuelve verdadero si todas las oraciones son verdaderas
+
+    def formula(self):
+        "Devuelve la representación de la conjunción."
+        return " & ".join(arg.formula() for arg in self.args)  # Retorna la fórmula en forma de cadena
+
+    def symbols(self):
+        "Devuelve el conjunto de símbolos presentes en la conjunción."
+        symbols = set()  # Conjunto vacío para almacenar símbolos
+        for arg in self.args:
+            symbols.update(arg.symbols())  # Actualiza el conjunto con los símbolos de cada argumento
+        return symbols  # Devuelve el conjunto de símbolos
+    </pre>
+
+    <h3>Clase Or (Disyunción)</h3>
+    <pre>
+class Or(Sentence):
+    "Representa la disyunción lógica."
+
+    def __init__(self, *args):
+        self.args = args  # Inicializa con un conjunto de oraciones
+
+    def evaluate(self, model):
+        "Evalúa la disyunción."
+        return any(arg.evaluate(model) for arg in self.args)  # Devuelve verdadero si al menos una oración es verdadera
+
+    def formula(self):
+        "Devuelve la representación de la disyunción."
+        return " | ".join(arg.formula() for arg in self.args)  # Retorna la fórmula en forma de cadena
+
+    def symbols(self):
+        "Devuelve el conjunto de símbolos presentes en la disyunción."
+        symbols = set()  # Conjunto vacío para almacenar símbolos
+        for arg in self.args:
+            symbols.update(arg.symbols())  # Actualiza el conjunto con los símbolos de cada argumento
+        return symbols  # Devuelve el conjunto de símbolos
+    </pre>
+
+    <h2>Algoritmos de Búsqueda</h2>
+    <h3>Algoritmo de Búsqueda Binaria</h3>
+    <p>El algoritmo de búsqueda binaria es una técnica eficiente para encontrar un elemento en una lista ordenada. Funciona dividiendo repetidamente el rango de búsqueda a la mitad.</p>
+    <pre>
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1  # Inicializamos los límites de búsqueda
+
+    while left <= right:
+        mid = (left + right) // 2  # Calculamos el punto medio
+        if arr[mid] == target:  # Comprobamos si el medio es el objetivo
+            return mid  # Devolvemos la posición del objetivo
+        elif arr[mid] < target:  # Si el medio es menor que el objetivo
+            left = mid + 1  # Ajustamos el límite izquierdo
+        else:
+            right = mid - 1  # Ajustamos el límite derecho
+
+    return -1  # Retorna -1 si el objetivo no se encuentra en el arreglo
+    </pre>
+    <h3>Algoritmo de Búsqueda Profunda (DFS)</h3>
+    <p>El algoritmo de búsqueda en profundidad (DFS) explora un camino hasta el final antes de retroceder y explorar otros caminos.</p>
+    <pre>
+def dfs(graph, start, visited=None):
+    if visited is None:
+        visited = set()  # Inicializa el conjunto de nodos visitados
+    visited.add(start)  # Marca el nodo actual como visitado
+    print(start)  # Imprime el nodo actual
+    for neighbor in graph[start]:  # Explora los vecinos del nodo actual
+        if neighbor not in visited:  # Si el vecino no ha sido visitado
+            dfs(graph, neighbor, visited)  # Llama recursivamente a DFS
+    return visited  # Devuelve el conjunto de nodos visitados
+    </pre>
+    
+    <h3>Algoritmo de Búsqueda Ampliada (BFS)</h3>
+    <p>El algoritmo de búsqueda en amplitud (BFS) explora todos los nodos a un nivel antes de pasar al siguiente nivel.</p>
+    <pre>
+from collections import deque  # Importamos deque para utilizar como cola
+
+def bfs(graph, start):
+    visited = set()  # Inicializa el conjunto de nodos visitados
+    queue = deque([start])  # Inicializa la cola con el nodo de inicio
+
+    while queue:  # Mientras haya nodos en la cola
+        vertex = queue.popleft()  # Extrae el primer nodo
+        if vertex not in visited:  # Si el nodo no ha sido visitado
+            visited.add(vertex)  # Marca el nodo como visitado
+            print(vertex)  # Imprime el nodo actual
+            queue.extend(neighbor for neighbor in graph[vertex] if neighbor not in visited)  # Añade los vecinos no visitados a la cola
+    return visited  # Devuelve el conjunto de nodos visitados
+    </pre>
+
+    <h1>Conclusiones</h1>
+    <p>La inteligencia artificial sigue siendo un campo en constante evolución, con aplicaciones en diversos ámbitos, como la ciberseguridad y la computación en la nube. Los algoritmos de búsqueda, ya sean profundos o en amplitud, son esenciales para resolver problemas complejos en la IA.</p>
+
+</body>
+</html>
